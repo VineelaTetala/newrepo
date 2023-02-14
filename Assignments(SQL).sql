@@ -1,3 +1,4 @@
+--Assignment-1
 create table customer_master
 (
 CUSTOMER_NUMBER int primary key,
@@ -17,16 +18,20 @@ values(1001,'Ramesh','Chandra','Sharma','Hyd',9678954321,'Inspector','09.03.2001
 (1004,'Thatisetti','NULL','Pallavi','Hyd',6241345609,'Student','08.06.2001'),
 (1005,'Lanka','Vineela','NULL','Rjy',9848678901,'Student','14.03.2002'),
 (1006,'Suresh','Rao','Majji','Vskp',9890847654,'Service','15.04.2002')
+
 --Display No.of customers belongs Each City
 select * from customer_master
 select CUSTOMER_CITY,COUNT(CUSTOMER_NUMBER) from customer_master group by CUSTOMER_CITY
+
 --Display all city Names from Customer tables without any duplicate value
 select * from customer_master
 select CUSTOMER_CITY from customer_master
 select distinct CUSTOMER_CITY from customer_master
+
 --Display No.of customers from different Occupation
 select * from customer_master
 select occupation,COUNT(CUSTOMER_NUMBER) from customer_master group by occupation
+
 --Display Customer Details with the Ascending Order based on FirstName
 select * from customer_master
 select * from customer_master order by FIRSTNAME
@@ -118,7 +123,8 @@ select * from transaction_details
 --assignment-3
 
 --Assignment on Stored Procedure
---Create a user defined stored procedure to display ìwelcome to SQL Serverî as message andexecute it
+--Create a user defined stored procedure to display ‚Äúwelcome to SQL Server‚Äù as message andexecute it
+
 CREATE PROCEDURE DisplayMessage
 AS
 BEGIN
@@ -128,6 +134,7 @@ EXEC DisplayMessage
 
 --create a stored procedure which takes Gender and id as input paramaeter . Based on input
 --parameter display the Emplyee Name ,Gender Salary from tblEmployee table
+
 create table tblemployee
 (
 DeptId int identity primary key,
@@ -152,6 +159,7 @@ insert into tblDepartment values
 ('Payroll','Delhi','Ron'),
 ('HR','NewYork','Christle')
 select * from tblDepartment
+
 --create a stored procedure which takes Gender and Depatid as input paramaeter and
 --TotlaEmployeecount as output param. Based on input parameter display the Emplyee Name ,Gender
 --Salary from tblEmployee table and Total Employee of given Gender and Department Id
@@ -168,6 +176,7 @@ END
 
 --create a stored procedure two add thee number and display the sum of three numberas output. If
 --user does not pass values for input params give default value sum as output.
+
 CREATE PROCEDURE GetSumOfNumbers (@Number1 INT = 0, @Number2 INT = 0, @Number3 INT = 0, @Sum INT OUTPUT)
 AS
 BEGIN
@@ -182,6 +191,7 @@ PRINT 'Sum: ' + CAST(@Sum AS VARCHAR(10))
 DECLARE @Sum INT
 EXEC GetSumOfNumbers @Sum OUTPUT
 PRINT 'Sum: ' + CAST(@Sum AS VARCHAR(10))
+
 --Assignments on Functions
 --create a function to display student information by BranchId
 CREATE FUNCTION DisplayStudentInformationByBranchId (@BranchId INT)
@@ -202,7 +212,9 @@ RETURN
     WHERE 
         s.BranchId = @BranchId
 )
+
 --create a function to display student information by Gender
+
 CREATE FUNCTION DisplayStudentInformationByGender (@Gender VARCHAR(10))
 RETURNS TABLE
 AS
@@ -234,6 +246,7 @@ END
 --Assignment on Trigger:
 --create a trigger to delete the recode from tblEmployee table and insert deleted record
 --deetails in tblEmployeeaudit Table (use after or For trigger)
+
 CREATE TRIGGER trg_DeleteEmployeeRecord
 ON tblEmployee
 AFTER DELETE
@@ -248,4 +261,12 @@ BEGIN
         DELETED
 END
 
+--Assignmen on subquery
+/*assignment
+List put the product details which is not at all sold using subquery.
+refer tblProduct and tblproductSales tables
+*/
 
+SELECT * 
+FROM tblProduct 
+WHERE productId NOT IN (SELECT productId FROM tblproductSales);
